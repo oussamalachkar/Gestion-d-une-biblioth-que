@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MyBookShelf | Gestion de bibliothèque</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Section Authentification -->
+    <div class="auth-container" id="authSection">
+      <div class="logo">
+        <i class="fas fa-book-open"></i>
+        <h1>MyBookShelf</h1>
+      </div>
+
+      <!-- Formulaire Connexion -->
+      <div class="auth-form active" id="loginForm">
+        <h2>Connexion</h2>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="loginUser" placeholder="Nom d'utilisateur" />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPass" placeholder="Mot de passe" />
+        </div>
+        <button class="btn-primary" onclick="login()">
+          <i class="fas fa-sign-in-alt"></i> Se connecter
+        </button>
+        <p class="auth-toggle">
+          Pas de compte ? <a href="#" onclick="toggleForms()">S'inscrire</a>
+        </p>
+      </div>
+
+      <!-- Formulaire Inscription -->
+      <div class="auth-form" id="signupForm">
+        <h2>Créer un compte</h2>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="signupUser" placeholder="Nom d'utilisateur" />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="signupPass" placeholder="Mot de passe" />
+        </div>
+        <button class="btn-primary" onclick="signup()">
+          <i class="fas fa-user-plus"></i> S'inscrire
+        </button>
+        <p class="auth-toggle">
+          Déjà inscrit ? <a href="#" onclick="toggleForms()">Se connecter</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Section Bibliothèque (cachée au départ) -->
+    <div class="library-container hidden" id="librarySection">
+      <!-- Header -->
+      <header class="library-header">
+        <div class="header-left">
+          <i class="fas fa-book-open logo-icon"></i>
+          <h1>MyBookShelf</h1>
+        </div>
+        <div class="header-right">
+          <button class="btn-icon" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="btn-logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Déconnexion
+          </button>
+        </div>
+      </header>
+
+      <!-- Barre de recherche -->
+      <div class="search-section">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Rechercher un livre, auteur..." />
+          <button class="btn-icon" onclick="clearSearch()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contrôles principaux -->
+      <div class="controls-section">
+        <!-- Ajout de livre -->
+        <div class="control-card">
+          <h3><i class="fas fa-plus-circle"></i> Ajouter un livre</h3>
+          <div class="input-group">
+            <input type="text" id="newTitle" placeholder="Titre" />
+          </div>
+          <div class="input-group">
+            <input type="text" id="newAuthor" placeholder="Auteur" />
+          </div>
+          <button class="btn-primary" onclick="ajouterLivre()">
+            <i class="fas fa-save"></i> Ajouter
+          </button>
+        </div>
+
+        <!-- Gestion des livres -->
+        <div class="control-card">
+          <h3><i class="fas fa-cog"></i> Gestion</h3>
+          <div class="input-group">
+            <input type="text" id="deleteTitle" placeholder="Titre à supprimer" />
+          </div>
+          <button class="btn-danger" onclick="supprimerLivre()">
+            <i class="fas fa-trash"></i> Supprimer
+          </button>
+          <button class="btn-secondary" onclick="exporterBibliotheque()">
+            <i class="fas fa-file-export"></i> Exporter
+          </button>
+          <button class="btn-secondary" onclick="importerBibliotheque()">
+            <i class="fas fa-file-import"></i> Importer
+          </button>
+        </div>
+      </div>
+
+      <!-- Statistiques -->
+      <div class="stats-section">
+        <div class="stat-card">
+          <i class="fas fa-book"></i>
+          <h4>Livres</h4>
+          <p id="totalBooks">0</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-user-edit"></i>
+          <h4>Auteurs</h4>
+          <p id="totalAuthors">0</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-star"></i>
+          <h4>Favoris</h4>
+          <p id="totalFavorites">0</p>
+        </div>
+      </div>
+
+      <!-- Résultats -->
+      <div class="results-section">
+        <div class="results-header">
+          <h3><i class="fas fa-list"></i> Collection</h3>
+          <div class="sort-options">
+            <select id="sortSelect" onchange="trierLivres()">
+              <option value="title-asc">Titre (A-Z)</option>
+              <option value="title-desc">Titre (Z-A)</option>
+              <option value="author-asc">Auteur (A-Z)</option>
+              <option value="author-desc">Auteur (Z-A)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="resultContainer" class="result-container"></div>
+      </div>
+    </div>
+
+    
+          <!-- Contenu dynamique -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
